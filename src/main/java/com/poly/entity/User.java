@@ -65,6 +65,10 @@ public class User implements UserDetails {
     @JsonIgnore
     private Set<CommentDetails> commentDetailsSet = new LinkedHashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<CommentDetails> commentDetailsSetUser = new LinkedHashSet<>();
+
     public User() {
     }
 
@@ -214,5 +218,13 @@ public class User implements UserDetails {
 
     public void setShipperOrdersSet(Set<ShipperOrder> shipperOrdersSet) {
         this.shipperOrdersSet = shipperOrdersSet;
+    }
+
+    public Set<CommentDetails> getCommentDetailsSetUser() {
+        return commentDetailsSetUser;
+    }
+
+    public void setCommentDetailsSetUser(Set<CommentDetails> commentDetailsSetUser) {
+        this.commentDetailsSetUser = commentDetailsSetUser;
     }
 }

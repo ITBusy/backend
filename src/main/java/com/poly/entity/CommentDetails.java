@@ -17,15 +17,19 @@ public class CommentDetails {
     @ManyToOne(fetch = FetchType.EAGER)
     private User userReply;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
+
     public CommentDetails() {
     }
 
-    public CommentDetails(Long cDetailsID, String content_reply, Date commentDateReply, Comment comment, User userReply) {
+    public CommentDetails(Long cDetailsID, String content_reply, Date commentDateReply, Comment comment, User userReply, User user) {
         this.cDetailsID = cDetailsID;
         this.content_reply = content_reply;
         this.commentDateReply = commentDateReply;
         this.comment = comment;
         this.userReply = userReply;
+        this.user = user;
     }
 
     public Long getcDetailsID() {
@@ -66,5 +70,13 @@ public class CommentDetails {
 
     public void setCommentDateReply(Date commentDateReply) {
         this.commentDateReply = commentDateReply;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

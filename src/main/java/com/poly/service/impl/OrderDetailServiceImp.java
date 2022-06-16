@@ -54,10 +54,10 @@ public class OrderDetailServiceImp implements com.poly.service.IOrderDetailServi
 
     @Override
     public Double getAmountOfOrder(User orderUser, String status) {
-        return Objects.requireNonNull(this.orderDetailRepository
-                        .findByOrder_UserOrderAndOrder_Status(orderUser, status).orElse(null))
-                .stream().mapToDouble(e -> e.getPrice() * e.getQuantity()).sum();
-
+        return this.orderDetailRepository
+                .findByOrder_UserOrderAndOrder_Status(orderUser, status)
+                .map(orderDetails -> orderDetails.stream().mapToDouble(e -> e.getPrice() * e.getQuantity()).sum())
+                .orElse(0.0);
 //        BigDecimal sum = Objects.requireNonNull(this.orderDetailRepository
 //                        .findByOrder_UserOrderAndOrder_Status(orderUser, status).orElse(null))
 //                .stream().map(data -> BigDecimal.valueOf(data.getQuantity()).multiply(BigDecimal.valueOf(data.getPrice())))

@@ -67,7 +67,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (360,'hello baby',15,6,'2022-06-15 23:13:00.271000'),(361,'kaka',15,6,'2022-06-15 23:14:10.247000'),(362,'kaka',15,6,'2022-06-15 23:14:11.981000'),(363,'kaka test key',15,6,'2022-06-15 23:18:02.352000'),(364,'kaka test key',15,6,'2022-06-15 23:18:02.424000'),(365,'ds',15,6,'2022-06-15 23:18:46.100000'),(366,'test comment date',15,6,'2022-06-16 01:13:52.635000'),(367,'xong rui con cho',15,6,'2022-06-16 01:42:53.608000'),(368,'dsada',15,6,'2022-06-16 01:45:54.243000'),(369,'dsasd',15,6,'2022-06-16 01:56:43.358000'),(370,'dsds',15,6,'2022-06-16 01:58:09.056000'),(371,'sdfsd',15,6,'2022-06-16 01:59:12.498000'),(372,'dasdas',15,6,'2022-06-16 02:00:17.484000'),(373,'asddas',15,6,'2022-06-16 02:01:52.468000'),(374,'sdadas',15,6,'2022-06-16 02:06:08.133000'),(375,'sdadas',15,6,'2022-06-16 02:06:08.142000'),(376,'dsadsadsadwqeq',15,6,'2022-06-16 02:29:21.728000'),(377,'hello',250,6,'2022-06-16 02:52:20.584000');
+INSERT INTO `comment` VALUES (360,'hello baby',15,6,'2022-06-15 23:13:00.271000'),(361,'kaka',15,6,'2022-06-15 23:14:10.247000'),(362,'kaka',15,6,'2022-06-15 23:14:11.981000'),(363,'kaka test key',15,6,'2022-06-15 23:18:02.352000'),(364,'kaka test key',15,6,'2022-06-15 23:18:02.424000'),(365,'ds',15,6,'2022-06-15 23:18:46.100000'),(366,'test comment date',15,6,'2022-06-16 01:13:52.635000'),(367,'xong rui con cho',15,6,'2022-06-16 01:42:53.608000'),(368,'dsada',15,6,'2022-06-16 01:45:54.243000'),(369,'dsasd',15,6,'2022-06-16 01:56:43.358000'),(370,'dsds',15,6,'2022-06-16 01:58:09.056000'),(371,'sdfsd',15,6,'2022-06-16 01:59:12.498000'),(372,'dasdas',15,6,'2022-06-16 02:00:17.484000'),(373,'asddas',15,6,'2022-06-16 02:01:52.468000'),(374,'sdadas',15,6,'2022-06-16 02:06:08.133000'),(375,'sdadas',15,6,'2022-06-16 02:06:08.142000'),(376,'dsadsadsadwqeq',15,6,'2022-06-16 02:29:21.728000'),(377,'hello',250,6,'2022-06-16 02:52:20.584000'),(406,'máy quá tốt trong tầm giá luôn',15,404,'2022-06-16 23:16:31.586000');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,9 +84,12 @@ CREATE TABLE `comment_details` (
   `comment_comment_id` bigint DEFAULT NULL,
   `user_reply_id` bigint DEFAULT NULL,
   `comment_date_reply` datetime(6) DEFAULT NULL,
+  `user_id` bigint DEFAULT NULL,
   PRIMARY KEY (`c_detailsid`),
   KEY `FKojdtjc96516jlag740088hc02` (`comment_comment_id`),
   KEY `FKf6m346dqxquvp4bm3ow2twkq5` (`user_reply_id`),
+  KEY `FK1xqjbqrwj4ce76qdt20ipiain` (`user_id`),
+  CONSTRAINT `FK1xqjbqrwj4ce76qdt20ipiain` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `FKf6m346dqxquvp4bm3ow2twkq5` FOREIGN KEY (`user_reply_id`) REFERENCES `users` (`id`),
   CONSTRAINT `FKojdtjc96516jlag740088hc02` FOREIGN KEY (`comment_comment_id`) REFERENCES `comment` (`comment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -98,6 +101,7 @@ CREATE TABLE `comment_details` (
 
 LOCK TABLES `comment_details` WRITE;
 /*!40000 ALTER TABLE `comment_details` DISABLE KEYS */;
+INSERT INTO `comment_details` VALUES (400,'san pham nay tot khong ban',376,6,'2022-06-16 22:47:50.158000',336),(401,'san pham nay nhu nao vay ban',376,336,'2022-06-16 22:49:34.003000',266),(402,'dung cung on nha ban',376,266,'2022-06-16 22:50:14.994000',6),(403,'ban mua ve hoc thi ok nhe con choi game thi khoong duoc',376,336,'2022-06-16 22:51:35.609000',6),(405,'mình mới mua được 1 tháng thấy cũng ok lắm bạn',376,266,'2022-06-16 23:09:58.970000',404);
 /*!40000 ALTER TABLE `comment_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +123,7 @@ CREATE TABLE `hibernate_sequence` (
 
 LOCK TABLES `hibernate_sequence` WRITE;
 /*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
-INSERT INTO `hibernate_sequence` VALUES (391);
+INSERT INTO `hibernate_sequence` VALUES (407);
 /*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -369,7 +373,7 @@ CREATE TABLE `user_role` (
 
 LOCK TABLES `user_role` WRITE;
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
-INSERT INTO `user_role` VALUES (5,1),(6,2),(266,2),(335,2),(336,2),(352,2),(4,3),(320,3);
+INSERT INTO `user_role` VALUES (5,1),(6,2),(266,2),(336,2),(352,2),(404,2),(4,3),(320,3);
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -401,7 +405,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (4,NULL,'shipper12@gmail.com','Le Van Hung','https://firebasestorage.googleapis.com/v0/b/asmjava5.appspot.com/o/Avatar%2Ftlsqp7hcf6?alt=media&token=e01dc2e6-ac50-4090-b510-cc889ed12b42','$2a$10$A6K7tfVZBQrvRbWE.6Mh/.ZbFGhEGYuP/K3TrzLWZgux2AATeyh4O',NULL,'Shipper12'),(5,NULL,'admin12@gmail.com','Le Van Hung','https://firebasestorage.googleapis.com/v0/b/asmjava5.appspot.com/o/Avatar%2Ftlsqp7hcf6?alt=media&token=e01dc2e6-ac50-4090-b510-cc889ed12b42','$2a$10$JJnS7Ep2xt0BaTqnnZDH6OcGezdQboRsrn05si7PfrdCU6dh2eEyu',NULL,'Admin12'),(6,'Long An','client12@gmail.com','Le Van Hung','https://firebasestorage.googleapis.com/v0/b/asmjava5.appspot.com/o/Avatar%2Ftlsqp7hcf6?alt=media&token=e01dc2e6-ac50-4090-b510-cc889ed12b42','$2a$10$KiLkaXBPUa7EMBc.Odf1X.gaIe41VPk3/PaRN30CZWi84LfL3UBjq','123456789','Client12'),(266,NULL,'abc@gmail.com','Nguyễn Thanh Bình','https://firebasestorage.googleapis.com/v0/b/asmjava5.appspot.com/o/Avatar%2Ftlsqp7hcf6?alt=media&token=e01dc2e6-ac50-4090-b510-cc889ed12b42','$2a$10$8AK3a8Pyj482NZfCQgRazOVoMCJEl1QdZTL4BdkHPveqJOF7FW1Gu',NULL,'Client13'),(320,'Hà Nội','shipper13@gmail.com','Trần Đình Quang Huy','https://firebasestorage.googleapis.com/v0/b/asmjava5.appspot.com/o/Avatar%2Fxw3rn7m30cl?alt=media&token=4504af4b-cd52-4b81-8e79-1637f5205ebc','$2a$10$VagGgAfSmPviBPcqdqf1FusCO88jtdzWGqvQvby5JX.KgZAtSa12y','123456789','Shipper13'),(335,NULL,NULL,'Bùi Văn An','https://firebasestorage.googleapis.com/v0/b/asmjava5.appspot.com/o/Avatar%2Ftlsqp7hcf6?alt=media&token=e01dc2e6-ac50-4090-b510-cc889ed12b42','$2a$10$EGmjurxNx3DM0WNKLzYOeOBQvuQ9aBDOxFOINDsoHsbaogbbB2Qje',NULL,NULL),(336,NULL,'client14@gmail.com.vn','Bùi Văn An','https://firebasestorage.googleapis.com/v0/b/asmjava5.appspot.com/o/Avatar%2Ftlsqp7hcf6?alt=media&token=e01dc2e6-ac50-4090-b510-cc889ed12b42','$2a$10$mTzZQ3qBTygto6Xw5oFEeOf5CY/fynWPL8sVMdT/w38vFy8txdonW',NULL,'Client14'),(352,NULL,'daminh34@gmail.com','Le Van Hung','https://firebasestorage.googleapis.com/v0/b/asmjava5.appspot.com/o/Avatar%2Ftlsqp7hcf6?alt=media&token=e01dc2e6-ac50-4090-b510-cc889ed12b42','$2a$10$nxQ0AomnxCx3/.S8ufxPAOtUymeqdBT.SSgzPQIGIa0OUgOmFU0Qy',NULL,'kakaka');
+INSERT INTO `users` VALUES (4,NULL,'shipper12@gmail.com','Le Van Hung','https://firebasestorage.googleapis.com/v0/b/asmjava5.appspot.com/o/Avatar%2Ftlsqp7hcf6?alt=media&token=e01dc2e6-ac50-4090-b510-cc889ed12b42','$2a$10$A6K7tfVZBQrvRbWE.6Mh/.ZbFGhEGYuP/K3TrzLWZgux2AATeyh4O',NULL,'Shipper12'),(5,NULL,'admin12@gmail.com','Le Van Hung','https://firebasestorage.googleapis.com/v0/b/asmjava5.appspot.com/o/Avatar%2Ftlsqp7hcf6?alt=media&token=e01dc2e6-ac50-4090-b510-cc889ed12b42','$2a$10$JJnS7Ep2xt0BaTqnnZDH6OcGezdQboRsrn05si7PfrdCU6dh2eEyu',NULL,'Admin12'),(6,'Long An','client12@gmail.com','Le Van Hung','https://firebasestorage.googleapis.com/v0/b/asmjava5.appspot.com/o/Avatar%2Ftlsqp7hcf6?alt=media&token=e01dc2e6-ac50-4090-b510-cc889ed12b42','$2a$10$KiLkaXBPUa7EMBc.Odf1X.gaIe41VPk3/PaRN30CZWi84LfL3UBjq','123456789','Client12'),(266,NULL,'abc@gmail.com','Nguyễn Thanh Bình','https://firebasestorage.googleapis.com/v0/b/asmjava5.appspot.com/o/Avatar%2Ftlsqp7hcf6?alt=media&token=e01dc2e6-ac50-4090-b510-cc889ed12b42','$2a$10$8AK3a8Pyj482NZfCQgRazOVoMCJEl1QdZTL4BdkHPveqJOF7FW1Gu',NULL,'Client13'),(320,'Hà Nội','shipper13@gmail.com','Trần Đình Quang Huy','https://firebasestorage.googleapis.com/v0/b/asmjava5.appspot.com/o/Avatar%2Fxw3rn7m30cl?alt=media&token=4504af4b-cd52-4b81-8e79-1637f5205ebc','$2a$10$VagGgAfSmPviBPcqdqf1FusCO88jtdzWGqvQvby5JX.KgZAtSa12y','123456789','Shipper13'),(336,NULL,'client14@gmail.com.vn','Bùi Văn An','https://firebasestorage.googleapis.com/v0/b/asmjava5.appspot.com/o/Avatar%2Ftlsqp7hcf6?alt=media&token=e01dc2e6-ac50-4090-b510-cc889ed12b42','$2a$10$mTzZQ3qBTygto6Xw5oFEeOf5CY/fynWPL8sVMdT/w38vFy8txdonW',NULL,'Client14'),(352,NULL,'daminh34@gmail.com','Le Van Hung','https://firebasestorage.googleapis.com/v0/b/asmjava5.appspot.com/o/Avatar%2Ftlsqp7hcf6?alt=media&token=e01dc2e6-ac50-4090-b510-cc889ed12b42','$2a$10$nxQ0AomnxCx3/.S8ufxPAOtUymeqdBT.SSgzPQIGIa0OUgOmFU0Qy',NULL,'kakaka'),(404,'Đồng Nai','client15@gmail.com','Võ Hoàng Bình Minh','https://firebasestorage.googleapis.com/v0/b/asmjava5.appspot.com/o/Avatar%2Fp955zub9tpj?alt=media&token=85cfb304-2535-47f6-8251-becc2bd953df','$2a$10$ypIUkj7HtvjDjLU7V7CTXOXe5oTQE//nei9yBpyA1XjUCStLsAxlm','326817904','Client15');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -414,4 +418,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-16 12:36:45
+-- Dump completed on 2022-06-16 23:26:37
