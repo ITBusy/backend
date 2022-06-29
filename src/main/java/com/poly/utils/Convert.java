@@ -1,5 +1,12 @@
-package com.poly.dto;
+package com.poly.utils;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import javax.validation.constraints.NotNull;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Convert {
@@ -33,5 +40,17 @@ public class Convert {
             return sb.toString().trim();
         }
         return null;
+    }
+
+    public static <E> E objectToClass(@NotNull Object[] obj, @NotNull Class<E> clazz) {
+        Map<String, Object> stringObjectMap = new HashMap<>();
+//        Class<?> aClass = clazz.getClass();
+        Field[] fields = clazz.getDeclaredFields();
+        for (int i = 0; i < fields.length; i++) {
+            stringObjectMap.put(fields[i].getName(), obj[i]);
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return mapper.convertValue(stringObjectMap, clazz);
     }
 }

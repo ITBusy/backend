@@ -61,6 +61,12 @@ public class ProductServiceImp implements com.poly.service.IProductService {
         assert productList != null;
         return this.getProductDtos(productList);
     }
+
+    @Override
+    public Product updateActiveProduct(Product product) {
+        return this.productRepository.save(product);
+    }
+
     //            productDto.setPId(p.getpId());
 //            productDto.setName(p.getName());
 //            productDto.setActive(p.isActive());

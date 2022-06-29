@@ -1,10 +1,12 @@
 package com.poly.service.impl;
 
 import com.poly.dto.OrderDto;
+import com.poly.dto.TurnoverDto;
 import com.poly.entity.Order;
 import com.poly.entity.OrderDetails;
 import com.poly.entity.User;
 import com.poly.repository.OrderRepository;
+import com.poly.utils.Convert;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,7 +56,6 @@ public class OrderServiceImp implements com.poly.service.IOrderService {
         }
         return dtoList;
     }
-
 
     //    Con loi chua sua
     @Override
@@ -118,5 +119,22 @@ public class OrderServiceImp implements com.poly.service.IOrderService {
     @Override
     public Order updateOrderByStatusCancelled(Order order) {
         return this.orderRepository.save(order);
+    }
+
+    @Override
+    public List<TurnoverDto> turnoverDtoList(String status, Integer moth, Integer year) {
+        List<TurnoverDto> turnoverDtoList = new ArrayList<>();
+        List<Object[]> objects = this.orderRepository.listTurnover(status, moth, year);
+        for (Object[] object : objects) {
+            TurnoverDto obj = Convert.objectToClass(object, TurnoverDto.class);
+            turnoverDtoList.add(obj);
+//            turnoverDto.setName(String.valueOf(object[0]));
+//            turnoverDto.setPrice(Double.parseDouble(object[2].toString()));
+//            turnoverDto.setQuantity(Integer.parseInt(object[2].toString()));
+//            turnoverDto.setMonth(Integer.parseInt(object[3].toString()));
+//            turnoverDto.setYear(Integer.parseInt(object[4].toString()));
+//            turnoverDto.setTotal(Double.parseDouble(object[5].toString()));
+        }
+        return turnoverDtoList;
     }
 }

@@ -1,9 +1,9 @@
 package com.poly.controller;
 
-import com.poly.dto.Convert;
 import com.poly.dto.ResponseObject;
 import com.poly.entity.Category;
 import com.poly.service.impl.CategoryServiceImp;
+import com.poly.utils.Convert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

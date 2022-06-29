@@ -1,12 +1,12 @@
 package com.poly.controller;
 
-import com.poly.dto.Convert;
 import com.poly.dto.ProductDto;
 import com.poly.dto.ResponseObject;
 import com.poly.entity.ImageProducts;
 import com.poly.entity.Product;
 import com.poly.service.impl.ImageProductServiceImp;
 import com.poly.service.impl.ProductServiceImp;
+import com.poly.utils.Convert;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -120,5 +120,25 @@ public class ProductController {
                     new ResponseObject("Found", "Have return data", productDto)
             );
         }
+    }
+
+    @PutMapping("/active")
+    public ResponseEntity<ResponseObject> updateActiveProduct(@RequestBody ProductDto productDto) {
+        ResponseEntity<ResponseObject> message = null;
+        Product product = new Product();
+        BeanUtils.copyProperties(productDto, product);
+        Product product1 = this.productServiceImp.updateActiveProduct(product);
+        try {
+            if (product1 != null) {
+                message = ResponseEntity.status(HttpStatus.OK).body(
+                        new ResponseObject("Ok", "Update active is success", product)
+                );
+            }
+        } catch (Exception e) {
+            message = ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("Failed", "Update active is failed", null)
+            );
+        }
+        return message;
     }
 }

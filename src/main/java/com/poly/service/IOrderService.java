@@ -1,6 +1,7 @@
 package com.poly.service;
 
 import com.poly.dto.OrderDto;
+import com.poly.dto.TurnoverDto;
 import com.poly.entity.Order;
 import com.poly.entity.User;
 
@@ -27,4 +28,6 @@ public interface IOrderService {
     Order updateOrderByStatusCompleted(Long orderId);
 
     Order updateOrderByStatusCancelled(Order order);
+
+    List<TurnoverDto> turnoverDtoList(String status, Integer moth, Integer year) throws IllegalAccessException;
 }

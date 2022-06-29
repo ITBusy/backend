@@ -5,6 +5,7 @@ import com.poly.entity.OrderDetails;
 import com.poly.entity.Product;
 import com.poly.entity.User;
 import com.poly.repository.OrderDetailRepository;
+import com.poly.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,9 @@ public class OrderDetailServiceImp implements com.poly.service.IOrderDetailServi
 
     @Autowired
     private OrderDetailRepository orderDetailRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Override
     public OrderDetails createOrderDetails(OrderDetails orderDetails) {
@@ -68,9 +72,14 @@ public class OrderDetailServiceImp implements com.poly.service.IOrderDetailServi
     @Override
     public OrderDetails updateOrderDetail(OrderDetails orderDetails) {
         OrderDetails orderDetail = this.findOrderDetailsById(orderDetails.getOrderDetailsId());
+        Long orderId = orderDetail.getOrder().getOId();
         if (orderDetail.getOrder().getStatus().equals("Cart")) {
             if (orderDetails.getQuantity() <= 0) {
                 this.orderDetailRepository.delete(orderDetail);
+                List<OrderDetails> orderDetails1 = this.orderDetailRepository.findByOrder_oId(orderId).orElse(null);
+                if (orderDetails1.isEmpty()) {
+                    this.orderRepository.deleteById(orderId);
+                }
             } else {
                 orderDetail.setQuantity(orderDetails.getQuantity());
                 this.orderDetailRepository.save(orderDetail);
@@ -93,7 +102,9 @@ public class OrderDetailServiceImp implements com.poly.service.IOrderDetailServi
 
     @Override
     public void deleteOrderDetailsById(OrderDetails orderDetails) {
+        Order order = orderDetails.getOrder();
         this.orderDetailRepository.delete(orderDetails);
+        this.orderRepository.delete(order);
     }
 
     @Override

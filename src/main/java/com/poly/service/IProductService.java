@@ -15,4 +15,6 @@ public interface IProductService {
     List<ProductDto> findByCategories(Long categoryId);
 
     List<ProductDto> findByManufacturer(Long manufacturerId);
+
+    Product updateActiveProduct(Product product);
 }

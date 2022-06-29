@@ -1,20 +1,24 @@
 package com.poly.controller;
 
-import com.poly.dto.Convert;
 import com.poly.dto.OrderDto;
 import com.poly.dto.ResponseObject;
+import com.poly.dto.SendMailOrderDto;
 import com.poly.entity.Order;
 import com.poly.entity.OrderDetails;
 import com.poly.entity.ShipperOrder;
 import com.poly.service.impl.OrderDetailServiceImp;
 import com.poly.service.impl.OrderServiceImp;
+import com.poly.service.impl.SendMailServiceImp;
 import com.poly.service.impl.ShipperOrderServiceImp;
+import com.poly.utils.Convert;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @RestController
@@ -30,6 +34,9 @@ public class OrderController {
 
     @Autowired
     private ShipperOrderServiceImp shipperOrderServiceImp;
+
+    @Autowired
+    private SendMailServiceImp sendMailServiceImp;
 
     @PostMapping("/")
     public ResponseEntity<ResponseObject> createOrder(@RequestBody OrderDto orderDto) {
@@ -261,6 +268,32 @@ public class OrderController {
     public ResponseEntity<ResponseObject> findShipperByOrderId(@PathVariable("oid") Long oid) {
         return ResponseEntity.ok(
                 new ResponseObject("Ok", "Have data", this.shipperOrderServiceImp.findByOrderID(oid))
+        );
+    }
+
+    @PostMapping("/send-mail-order")
+    public ResponseEntity<ResponseObject> sendMailOrder(@RequestBody SendMailOrderDto sendMailOrderDto) {
+        ResponseEntity<ResponseObject> message;
+        try {
+            this.sendMailServiceImp.sendMailOrder(sendMailOrderDto);
+            message = ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("Ok", "Send mail order is success", null)
+            );
+        } catch (MessagingException e) {
+            message = ResponseEntity.status(HttpStatus.OK).body(
+                    new ResponseObject("Ok", "Send mail order is failed " + e.getMessage(), null)
+            );
+        }
+        return message;
+    }
+
+    @GetMapping("/turnover/{status}/{month}/{year}")
+    @Transactional
+    public ResponseEntity<ResponseObject> listTurnover(@PathVariable("status") String status,
+                                                       @PathVariable("month") Integer month,
+                                                       @PathVariable("year") Integer year) {
+        return ResponseEntity.ok(
+                new ResponseObject("Ok", "Have data", this.orderServiceImp.turnoverDtoList(status, month, year))
         );
     }
 }
