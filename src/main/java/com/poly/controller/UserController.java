@@ -9,6 +9,7 @@ import com.poly.service.impl.RoleServiceImp;
 import com.poly.service.impl.SendMailServiceImp;
 import com.poly.service.impl.UserServiceImp;
 import com.poly.utils.Convert;
+import com.poly.utils.Image;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -204,7 +205,7 @@ public class UserController {
             roles.add(role);
             user.setRoles(roles);
             if (loggedUser.getImageUrl() == null) {
-                user.setImageUrl("https://firebasestorage.googleapis.com/v0/b/asmjava5.appspot.com/o/Avatar%2Ftlsqp7hcf6?alt=media&token=e01dc2e6-ac50-4090-b510-cc889ed12b42");
+                user.setImageUrl(Image.IMAGE_DEFAULT);
             } else {
                 user.setImageUrl(loggedUser.getImageUrl());
             }

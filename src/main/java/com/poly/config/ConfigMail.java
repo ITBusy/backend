@@ -16,7 +16,7 @@ public class ConfigMail {
         mailSender.setPort(587);
 
         mailSender.setUsername("hunglvpd05295@fpt.edu.vn");
-        mailSender.setPassword("vanhung685864123");
+        mailSender.setPassword("Vanhung6858641003");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");

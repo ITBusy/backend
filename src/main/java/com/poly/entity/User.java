@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.poly.config.CustomAuthorityDeserializer;
 import com.poly.dto.Authority;
+import com.poly.utils.AuthenticationProvider;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -43,6 +44,8 @@ public class User implements UserDetails {
 
     private String imageUrl;
 
+    @Enumerated(EnumType.STRING)
+    private AuthenticationProvider authProvider;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -73,7 +76,7 @@ public class User implements UserDetails {
     }
 
     public User(Long id, String username, String password, String fullName, String email,
-                String phoneNumber, String address, String imageUrl) {
+                String phoneNumber, String address, String imageUrl, AuthenticationProvider authProvider) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -82,6 +85,7 @@ public class User implements UserDetails {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.imageUrl = imageUrl;
+        this.authProvider = authProvider;
     }
 
     public Set<Role> getRoles() {
@@ -226,5 +230,13 @@ public class User implements UserDetails {
 
     public void setCommentDetailsSetUser(Set<CommentDetails> commentDetailsSetUser) {
         this.commentDetailsSetUser = commentDetailsSetUser;
+    }
+
+    public AuthenticationProvider getAuthProvider() {
+        return authProvider;
+    }
+
+    public void setAuthProvider(AuthenticationProvider authProvider) {
+        this.authProvider = authProvider;
     }
 }
