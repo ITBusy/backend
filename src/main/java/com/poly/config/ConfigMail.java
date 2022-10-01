@@ -1,5 +1,6 @@
 package com.poly.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -9,14 +10,26 @@ import java.util.Properties;
 
 @Configuration
 public class ConfigMail {
+    @Value("${spring.mail.username}")
+    private String username;
+
+    @Value("${spring.mail.password}")
+    private String password;
+
+    @Value("${spring.mail.port}")
+    private Integer port;
+
+    @Value("${spring.mail.host}")
+    private String host;
+
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.gmail.com");
-        mailSender.setPort(587);
+        mailSender.setHost(this.host);
+        mailSender.setPort(this.port);
 
-        mailSender.setUsername("hunglvpd05295@fpt.edu.vn");
-        mailSender.setPassword("Vanhung6858641003");
+        mailSender.setUsername(this.username);
+        mailSender.setPassword(this.password);
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");

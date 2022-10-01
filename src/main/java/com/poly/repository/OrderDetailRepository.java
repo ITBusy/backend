@@ -13,7 +13,8 @@ import java.util.Optional;
 
 @Repository
 public interface OrderDetailRepository extends JpaRepository<OrderDetails, Long> {
-    Optional<OrderDetails> findByProductAndOrder_StatusAndOrderAndOrder_UserOrder(Product product, String status, Order order, User userOrder);
+    Optional<OrderDetails> findByProductAndOrder_StatusAndOrderAndOrder_UserOrder(Product product, String status,
+                                                                                  Order order, User userOrder);
 
     long countByOrder_UserOrder_UsernameAndOrder_Status(String username, String status);
 

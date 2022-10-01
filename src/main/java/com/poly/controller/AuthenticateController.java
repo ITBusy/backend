@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -60,6 +61,9 @@ public class AuthenticateController {
     @Value("${google.clientId}")
     private String CLIENT_ID;
 
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
+
     @PostMapping("/generate-token")
     public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
         try {
@@ -71,6 +75,8 @@ public class AuthenticateController {
         UserDetails userDetails = this.userDetailsServiceImp.loadUserByUsername(jwtRequest.getUsername());
         if (this.bCryptPasswordEncoder.matches(jwtRequest.getPassword(), userDetails.getPassword())) {
             String token = this.jwtUtil.generateToken(userDetails);
+            User user = (User) this.userDetailsServiceImp.loadUserByUsername(jwtRequest.getUsername());
+//            this.simpMessagingTemplate.convertAndSend("/channel/login", user.getUsername());
             return ResponseEntity.status(HttpStatus.OK).body(new JwtResponse(token));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Password incorrect");
@@ -156,4 +162,5 @@ public class AuthenticateController {
                 user.getAuthorities().stream().iterator().next().getAuthority()
         );
     }
+
 }

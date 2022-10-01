@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/google",
                         "/user/check",
                         "/exists",
-                        "/user/send-mail/**").permitAll()
+                        "/user/send-mail/**", "/icomments/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -68,6 +68,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+//        http.headers().httpStrictTransportSecurity().maxAgeInSeconds(0).includeSubDomains(true);
+//        http.headers().httpStrictTransportSecurity().disable();
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
